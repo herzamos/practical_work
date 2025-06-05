@@ -12,10 +12,14 @@ func addToSlice(s []int, n int) {
 	}
 }
 
-func overlappingFail() {
+func sliceSucceed() {
 	s := make([]int, 3)
 	l := s[:2]
+	addToSlice(l, 1) // Succeeds
+}
+
+func sliceFail() {
+	s := make([]int, 3)
 	r := s[1:]
-	addToSlice(l, 1)
-	addToSlice(r, 1) 
+	addToSlice(r, 1) // Errors
 }

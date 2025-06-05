@@ -11,8 +11,7 @@ func onlyReadF(s *MyStruct) (f int) {
   return f
 }
 
-//@ requires acc(s, _)
+//@ requires acc(s)
 func caller_only_reads(s *MyStruct) {
-   
-  var f = onlyReadF(s)           
+  var _ = onlyReadF(s)           
 }
