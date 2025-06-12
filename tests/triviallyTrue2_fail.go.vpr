@@ -1,0 +1,305 @@
+domain PredicateInstance  {
+  
+  
+}
+
+domain PredicateInstancesNestedRelation  {
+  
+  function nestedPredicates(l1: PredicateInstance, l2: PredicateInstance): Bool 
+  
+  axiom nestedReflex {
+    (forall l1: PredicateInstance ::!nestedPredicates(l1, l1))
+  }
+  
+  axiom nestedTrans {
+    (forall l1: PredicateInstance, l2: PredicateInstance, l3: PredicateInstance ::
+      { nestedPredicates(l1, l2), nestedPredicates(l2, l3) }
+      nestedPredicates(l1, l2) && nestedPredicates(l2, l3) ==>
+      nestedPredicates(l1, l3))
+  }
+}
+
+domain PredicateInstancesWellFoundedOrder  {
+  
+  axiom predicate_instances_ax_bound {
+    (forall l1: PredicateInstance ::
+      { (bounded(l1): Bool) }
+      (bounded(l1): Bool))
+  }
+  
+  axiom predicate_instances_ax_dec {
+    (forall l1: PredicateInstance, l2: PredicateInstance ::
+      { nestedPredicates(l1, l2) }
+      (decreasing(l1, l2): Bool) == nestedPredicates(l1, l2))
+  }
+}
+
+domain String  {
+  
+  function strConcat(l: Int, r: Int): Int 
+  
+  function strLen(id: Int): Int 
+  
+  unique function stringLit(): Int 
+  
+  axiom {
+    (forall l: Int, r: Int ::
+      { strLen(strConcat(l, r)) }
+      strLen(strConcat(l, r)) == strLen(l) + strLen(r))
+  }
+  
+  axiom {
+    (forall str: Int :: { strLen(str) } 0 <= strLen(str))
+  }
+  
+  axiom {
+    strLen(stringLit()) == 0
+  }
+}
+
+domain Tuple2[T0, T1]  {
+  
+  function get0of2(p: Tuple2[T0, T1]): T0 
+  
+  function get1of2(p: Tuple2[T0, T1]): T1 
+  
+  function tuple2(t0: T0, t1: T1): Tuple2[T0, T1] 
+  
+  axiom getter_over_tuple2 {
+    (forall t0: T0, t1: T1 ::
+      { (tuple2(t0, t1): Tuple2[T0, T1]) }
+      (get0of2((tuple2(t0, t1): Tuple2[T0, T1])): T0) == t0 &&
+      (get1of2((tuple2(t0, t1): Tuple2[T0, T1])): T1) == t1)
+  }
+  
+  axiom tuple2_over_getter {
+    (forall p: Tuple2[T0, T1] ::
+      { (get0of2(p): T0) }
+      { (get1of2(p): T1) }
+      (tuple2((get0of2(p): T0), (get1of2(p): T1)): Tuple2[T0, T1]) == p)
+  }
+}
+
+domain Types  {
+  
+  function behavioral_subtype_Types(l: Types, r: Types): Bool 
+  
+  function comparableType_Types(t: Types): Bool 
+  
+  function empty_interface_Types(): Types 
+  
+  unique function empty_interface_Types_tag(): Int 
+  
+  function nil_Types(): Types 
+  
+  unique function nil_Types_tag(): Int 
+  
+  function tag_Types(t: Types): Int 
+  
+  axiom {
+    (forall a: Types ::
+      { behavioral_subtype_Types(a, a) }
+      behavioral_subtype_Types(a, a))
+  }
+  
+  axiom {
+    (forall a: Types ::
+      { behavioral_subtype_Types(a, empty_interface_Types()) }
+      behavioral_subtype_Types(a, empty_interface_Types()))
+  }
+  
+  axiom {
+    (forall a: Types, b: Types, c: Types ::
+      { behavioral_subtype_Types(a, b), behavioral_subtype_Types(b, c) }
+      behavioral_subtype_Types(a, b) && behavioral_subtype_Types(b, c) ==>
+      behavioral_subtype_Types(a, c))
+  }
+  
+  axiom {
+    comparableType_Types(empty_interface_Types()) == false
+  }
+  
+  axiom {
+    comparableType_Types(nil_Types()) == true
+  }
+  
+  axiom {
+    tag_Types(empty_interface_Types()) == empty_interface_Types_tag()
+  }
+  
+  axiom {
+    tag_Types(nil_Types()) == nil_Types_tag()
+  }
+}
+
+domain WellFoundedOrder[T]  {
+  
+  function bounded(arg1: T): Bool 
+  
+  function decreasing(arg1: T, arg2: T): Bool 
+}
+
+function IsDuplicableMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf: Tuple2[Ref, Types]): Bool
+  requires !(thisItf == (tuple2(null, nil_Types()): Tuple2[Ref, Types]))
+  requires acc(ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf), wildcard)
+  decreases ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf)
+
+
+predicate ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf: Tuple2[Ref, Types]) 
+
+method $IMPORTS_bdedb392_ad177c4e()
+{
+  
+  // decl 
+  {
+    
+    
+    label returnLabel
+  }
+}
+
+method $IMPORTS_bdedb392_bdedb392()
+{
+  
+  // decl 
+  {
+    
+    
+    label returnLabel
+  }
+}
+
+method $INIT_bdedb392_40c14958()
+  decreases
+{
+  
+  // decl 
+  {
+    
+    
+    label returnLabel
+  }
+}
+
+method Duplicate_ad177c4e_SY$db8f20c_ad177c4e_(thisItf: Tuple2[Ref, Types])
+  requires !(thisItf == (tuple2(null, nil_Types()): Tuple2[Ref, Types]))
+  requires acc(ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf), write)
+  ensures acc(ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf), write)
+  ensures IsDuplicableMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf) ==
+    old(IsDuplicableMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf))
+  ensures IsDuplicableMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf) ==>
+    acc(ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf), write)
+  decreases ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf)
+
+
+method Error_ad177c4e_SY$db8f20c_ad177c4e_(thisItf: Tuple2[Ref, Types])
+  returns (P0_PO0: Int)
+  requires !(thisItf == (tuple2(null, nil_Types()): Tuple2[Ref, Types]))
+  requires acc(ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf), write)
+  ensures acc(ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf), write)
+  ensures IsDuplicableMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf) ==
+    old(IsDuplicableMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf))
+  decreases ErrorMem_ad177c4e_SY$db8f20c_ad177c4e_(thisItf)
+
+
+method panic_ad177c4e_F(v_V0: Tuple2[Ref, Types])
+  requires false
+
+
+method panic_ad177c4e_F_unicity(v_V0: Tuple2[Ref, Types], v_V0_unicity: Tuple2[Ref, Types])
+{
+  
+  // decl 
+  {
+    
+    
+    
+    // inhale false
+    inhale false
+    
+    // inhale false
+    inhale false
+    label returnLabel
+  }
+}
+
+method triviallyTrue2_bdedb392_F(a_V0: Int, b_V0: Int)
+  requires a_V0 > 10
+  requires a_V0 > 15 && b_V0 < 10
+  requires a_V0 > 15 ==> b_V0 < 10
+  requires (a_V0 > 15 ? b_V0 < 10 : true) || b_V0 > 15
+
+
+method triviallyTrue2_bdedb392_F_redundancy(a_V0: Int, b_V0: Int)
+{
+  
+  // decl 
+  {
+    
+    
+    
+    // assert (((((a_V0 > 15) && (b_V0 < 10)) && (!(a_V0 > 15) || (b_V0 < 10))) && ((a_V0 > 15)?(b_V0 < 10):true || (b_V0 > 15))) && !(a_V0 > 10))
+    assert a_V0 > 15 && b_V0 < 10 && (!(a_V0 > 15) || b_V0 < 10) &&
+      ((a_V0 > 15 ? b_V0 < 10 : true) || b_V0 > 15) &&
+      !(a_V0 > 10)
+    
+    // assert ((((a_V0 > 10) && (!(a_V0 > 15) || (b_V0 < 10))) && ((a_V0 > 15)?(b_V0 < 10):true || (b_V0 > 15))) && !((a_V0 > 15) && (b_V0 < 10)))
+    assert a_V0 > 10 && (!(a_V0 > 15) || b_V0 < 10) &&
+      ((a_V0 > 15 ? b_V0 < 10 : true) || b_V0 > 15) &&
+      !(a_V0 > 15 && b_V0 < 10)
+    
+    // assert ((((a_V0 > 10) && ((a_V0 > 15) && (b_V0 < 10))) && ((a_V0 > 15)?(b_V0 < 10):true || (b_V0 > 15))) && !(!(a_V0 > 15) || (b_V0 < 10)))
+    assert a_V0 > 10 && (a_V0 > 15 && b_V0 < 10) &&
+      ((a_V0 > 15 ? b_V0 < 10 : true) || b_V0 > 15) &&
+      !(!(a_V0 > 15) || b_V0 < 10)
+    
+    // assert ((((a_V0 > 10) && ((a_V0 > 15) && (b_V0 < 10))) && (!(a_V0 > 15) || (b_V0 < 10))) && !((a_V0 > 15)?(b_V0 < 10):true || (b_V0 > 15)))
+    assert a_V0 > 10 && (a_V0 > 15 && b_V0 < 10) &&
+      (!(a_V0 > 15) || b_V0 < 10) &&
+      !((a_V0 > 15 ? b_V0 < 10 : true) || b_V0 > 15)
+    label returnLabel
+  }
+}
+
+method triviallyTrue2_bdedb392_F_unicity(a_V0: Int, a_V0_unicity: Int, b_V0: Int,
+  b_V0_unicity: Int)
+{
+  
+  // decl 
+  {
+    
+    
+    
+    // inhale (a_V0 > 10)
+    inhale a_V0 > 10
+    
+    // inhale (a_V0_unicity > 10)
+    inhale a_V0_unicity > 10
+    
+    // inhale (a_V0 > 15) && (b_V0 < 10)
+    inhale a_V0 > 15 && b_V0 < 10
+    
+    // inhale (a_V0_unicity > 15) && (b_V0_unicity < 10)
+    inhale a_V0_unicity > 15 && b_V0_unicity < 10
+    
+    // inhale (a_V0 > 15) ==> (b_V0 < 10)
+    inhale a_V0 > 15 ==> b_V0 < 10
+    
+    // inhale (a_V0_unicity > 15) ==> (b_V0_unicity < 10)
+    inhale a_V0_unicity > 15 ==> b_V0_unicity < 10
+    
+    // inhale ((a_V0 > 15)?(b_V0 < 10):true || (b_V0 > 15))
+    inhale (a_V0 > 15 ? b_V0 < 10 : true) || b_V0 > 15
+    
+    // inhale ((a_V0_unicity > 15)?(b_V0_unicity < 10):true || (b_V0_unicity > 15))
+    inhale (a_V0_unicity > 15 ? b_V0_unicity < 10 : true) ||
+      b_V0_unicity > 15
+    
+    // refute (a_V0 == a_V0_unicity)
+    refute a_V0 == a_V0_unicity
+    
+    // refute (b_V0 == b_V0_unicity)
+    refute b_V0 == b_V0_unicity
+    label returnLabel
+  }
+}
