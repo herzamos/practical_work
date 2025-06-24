@@ -1853,3 +1853,17 @@ INFO: Unsupported notification method: $/setTrace
 2025.05.24 11:38:13 INFO  Shutting down server[0m
 2025.05.24 11:38:13 INFO  shutting down Metals[0m
 2025.05.24 11:38:13 INFO  Exiting server[0m
+2025.06.12 15:52:04 INFO  Started: Metals version 1.6.0 in folders '/Users/herzamos/Desktop/eth/fs25/practical-work' for client Visual Studio Code 1.98.2.
+Jun 14, 2025 1:58:50 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jun 14, 2025 1:58:57 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jun 14, 2025 1:58:59 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jun 14, 2025 1:59:04 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jun 14, 2025 1:59:07 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2025.06.14 02:04:52 INFO  Shutting down server
+2025.06.14 02:04:52 INFO  shutting down Metals
+2025.06.14 02:04:52 INFO  Exiting server

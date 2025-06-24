@@ -1,7 +1,8 @@
 package tests
 
 /*@
-pred elements(l *List) {
-	acc(&l.Value) && acc(&l.next) && (l.next != nil ==> elements(l.next))
-}
+pred p()
 @*/
+
+// @ ensures old(p()) == p()
+func oldHeapAcces3()

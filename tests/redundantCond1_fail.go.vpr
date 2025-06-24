@@ -169,7 +169,7 @@ method $IMPORTS_bdedb392_bdedb392()
   }
 }
 
-method $INIT_bdedb392_40c14958()
+method $INIT_bdedb392_abb11e34()
   decreases
 {
   
@@ -206,11 +206,12 @@ method panic_ad177c4e_F(v_V0: Tuple2[Ref, Types])
   requires false
 
 
-method triviallyTrue2_bdedb392_F(a_V0: Int)
-  requires a_V0 > 10 || a_V0 <= 10
+method redundantCond1_bdedb392_F(a_V0: Int, b_V0: Int)
+  requires a_V0 == 4 || b_V0 == 2
+  requires a_V0 == 4 || b_V0 == 2
 
 
-method triviallyTrue2_bdedb392_F_triviality(a_V0: Int)
+method redundantCond1_bdedb392_F_redundancy(a_V0: Int, b_V0: Int)
 {
   
   // decl 
@@ -218,13 +219,23 @@ method triviallyTrue2_bdedb392_F_triviality(a_V0: Int)
     
     
     
-    // assert exists triviality_check_var: integer° :: {  } !((a_V0 > 10) || (a_V0 <= 10))
-    assert (exists triviality_check_var: Int :: !(a_V0 > 10 || a_V0 <= 10))
+    // refute ((a_V0 == 4) || (b_V0 == 2))
+    refute a_V0 == 4 || b_V0 == 2
+    
+    // inhale ((a_V0 == 4) || (b_V0 == 2))
+    inhale a_V0 == 4 || b_V0 == 2
+    
+    // refute ((a_V0 == 4) || (b_V0 == 2))
+    refute a_V0 == 4 || b_V0 == 2
+    
+    // inhale ((a_V0 == 4) || (b_V0 == 2))
+    inhale a_V0 == 4 || b_V0 == 2
     label returnLabel
   }
 }
 
-method triviallyTrue2_bdedb392_F_unicity(a_V0: Int, a_V0_unicity: Int)
+method redundantCond1_bdedb392_F_unicity(a_V0: Int, a_V0_unicity: Int, b_V0: Int,
+  b_V0_unicity: Int)
 {
   
   // decl 
@@ -232,14 +243,23 @@ method triviallyTrue2_bdedb392_F_unicity(a_V0: Int, a_V0_unicity: Int)
     
     
     
-    // inhale ((a_V0 > 10) || (a_V0 <= 10))
-    inhale a_V0 > 10 || a_V0 <= 10
+    // inhale ((a_V0 == 4) || (b_V0 == 2))
+    inhale a_V0 == 4 || b_V0 == 2
     
-    // inhale ((a_V0_unicity > 10) || (a_V0_unicity <= 10))
-    inhale a_V0_unicity > 10 || a_V0_unicity <= 10
+    // inhale ((a_V0_unicity == 4) || (b_V0_unicity == 2))
+    inhale a_V0_unicity == 4 || b_V0_unicity == 2
+    
+    // inhale ((a_V0 == 4) || (b_V0 == 2))
+    inhale a_V0 == 4 || b_V0 == 2
+    
+    // inhale ((a_V0_unicity == 4) || (b_V0_unicity == 2))
+    inhale a_V0_unicity == 4 || b_V0_unicity == 2
     
     // refute (a_V0 == a_V0_unicity)
     refute a_V0 == a_V0_unicity
+    
+    // refute (b_V0 == b_V0_unicity)
+    refute b_V0 == b_V0_unicity
     label returnLabel
   }
 }
